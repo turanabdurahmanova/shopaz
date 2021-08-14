@@ -1,0 +1,24 @@
+<app-loading></app-loading>
+<mat-toolbar class="shadow justify-content-between px-5 mb-4">
+  <create-task-modal (createdTask)='displayCreatedTask($event)' [stages]=stages [users]=users [priorites]=priorites
+    [taskTypes]=taskTypes></create-task-modal>
+  <user-create-modal></user-create-modal>
+  <button mat-raised-button color="primary" (click)="logout()">
+    Logout
+    <btn-loader></btn-loader>
+  </button>
+</mat-toolbar>
+<div class="board">
+  <div class="board-wrapper">
+    <div class="board-columns" cdkDropListGroup>
+      <div class="board-column" *ngFor="let stage of stages; let i=index">
+        <div class="column-title">
+          {{ stage.name }}
+        </div>
+        <div class="tasks-container" cdkDropList [cdkDropListData]="stage.tasks" (cdkDropListDropped)="drop($event)">
+          <update-task-modal (updatedTask)='displayUpdatedTask()' [tasks]=stage.tasks [taskTypes]=taskTypes [users]=users></update-task-modal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

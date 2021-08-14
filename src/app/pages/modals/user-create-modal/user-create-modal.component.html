@@ -1,0 +1,54 @@
+<div (click)="openModal(userCreateModal)">
+  <button mat-raised-button color="primary">
+    Create user
+  </button>
+</div>
+<ng-template #userCreateModal>
+  <div class="modal-header">
+    <h2 class="">Create user</h2>
+    <button type="button" class="close" aria-label="Close" (click)="deleteModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pd-25">
+    <form [formGroup]="createUserForm">
+      <mat-form-field class="w-100">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username"
+          [ngClass]="{'has-error': (formControlsUser?.username?.errors) && submitted}">
+      </mat-form-field>
+      <error-wrapper [showError]="submitted" [control]="formControlsUser.username">
+      </error-wrapper>
+      <mat-form-field class="w-100">
+        <mat-label>Fullname</mat-label>
+        <input matInput formControlName="fullname"
+          [ngClass]="{'has-error': (formControlsUser?.fullname?.errors) && submitted}">
+      </mat-form-field>
+      <error-wrapper [showError]="submitted" [control]="formControlsUser.fullname">
+      </error-wrapper>
+      <mat-form-field class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <error-wrapper [showError]="submitted" [control]="formControlsUser.password">
+      </error-wrapper>
+      <mat-form-field class="full-width-field w-100">
+        <input matInput type="number" min="18" max="100" formControlName="age" placeholder="Age"
+          [ngClass]="{'has-error': (formControlsUser?.age?.errors) && submitted}">
+      </mat-form-field>
+      <error-wrapper [showError]="submitted" [control]="formControlsUser.age">
+      </error-wrapper>
+      <mat-checkbox formControlName="isAdmin" class="example-margin">is Admin?</mat-checkbox>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="createUserSend()" style="display: flex;
+      align-items: center;">Təsdiqlə
+      <btn-loader></btn-loader>
+    </button>
+  </div>
+</ng-template>

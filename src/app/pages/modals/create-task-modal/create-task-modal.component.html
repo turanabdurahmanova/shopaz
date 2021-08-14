@@ -1,0 +1,67 @@
+<div (click)="openModal(taskCreateModal)">
+  <button mat-raised-button color="primary">
+    Create Task
+  </button>
+</div>
+
+<ng-template #taskCreateModal>
+  <div class="modal-header">
+    <h2 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Create task</h2>
+    <button type="button" class="close" aria-label="Close" (click)="deleteModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pd-25">
+    <form [formGroup]="createTaskForm">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field>
+            <mat-label>Task name</mat-label>
+            <input matInput formControlName="taskName"
+              [ngClass]="{'has-error': (formControlsTask?.taskName?.errors) && submitted}">
+          </mat-form-field>
+          <error-wrapper [showError]="submitted" [control]="formControlsTask.taskName">
+          </error-wrapper>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+          <error-wrapper [showError]="submitted" [control]="formControlsTask.description">
+          </error-wrapper>
+        </div>
+        <div class="col-6">
+          <ng-select [dropdownPosition]="'bottom'" formControlName="typeId" [searchable]="false" [closeOnSelect]="true"
+            [hideSelected]="false" [clearable]="false" [items]="taskTypes" notFoundText="Nəticə tapılmadı"
+            [multiple]="false" placeholder="Task type" bindLabel="name" bindValue="id">
+          </ng-select>
+          <error-wrapper [showError]="submitted" [control]="formControlsTask.typeId">
+          </error-wrapper>
+          <ng-select [dropdownPosition]="'bottom'" formControlName="stageId" [searchable]="false" [closeOnSelect]="true"
+            [hideSelected]="false" [clearable]="false" [items]="stages" notFoundText="Nəticə tapılmadı"
+            [multiple]="false" placeholder="Stages" bindLabel="name" bindValue="id">
+          </ng-select>
+          <error-wrapper [showError]="submitted" [control]="formControlsTask.stageId">
+          </error-wrapper>
+          <ng-select [dropdownPosition]="'bottom'" formControlName="priorityId" [searchable]="false"
+            [closeOnSelect]="true" [hideSelected]="false" [clearable]="false" [items]="priorites"
+            notFoundText="Nəticə tapılmadı" [multiple]="false" placeholder="Priorities" bindLabel="name" bindValue="id">
+          </ng-select>
+          <error-wrapper [showError]="submitted" [control]="formControlsTask.priorityId">
+          </error-wrapper>
+          <ng-select [dropdownPosition]="'bottom'" formControlName="userId" [searchable]="false" [closeOnSelect]="true"
+            [hideSelected]="false" [clearable]="false" [items]="users" notFoundText="Nəticə tapılmadı"
+            [multiple]="false" placeholder="Assignee(User)" bindLabel="username" bindValue="id">
+          </ng-select>
+          <error-wrapper [showError]="submitted" [control]="formControlsTask.userId">
+          </error-wrapper>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="createTaskSend()" style="display: flex;
+        align-items: center;">Təsdiqlə
+      <btn-loader></btn-loader>
+    </button>
+  </div>
+</ng-template>

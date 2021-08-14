@@ -1,0 +1,58 @@
+<div class="task" *ngFor="let task of tasks;" cdkDrag (click)="getSpecificTask(task.id,updateTaskModal)">
+  {{ task.name }}
+</div>
+
+
+<ng-template #updateTaskModal>
+  <div class="modal-header">
+    <h2 class="">Update task</h2>
+    <button type="button" class="close" aria-label="Close" (click)="deleteModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pd-25">
+    <form [formGroup]="updateTaskForm">
+      <mat-form-field class="w-100">
+        <mat-label>Task name</mat-label>
+        <input matInput formControlName="taskName" value="{{formControlsUpdateTask?.taskName.value}}"
+          [ngClass]="{'has-error': (formControlsUpdateTask?.taskName.errors) && submitted}">
+      </mat-form-field>
+      <error-wrapper [showError]="submitted" [control]="formControlsUpdateTask.taskName">
+      </error-wrapper>
+      <mat-form-field class="w-100">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" value="{{formControlsUpdateTask?.description.value}}"
+          [ngClass]="{'has-error': (formControlsUpdateTask?.description.errors) && submitted}">
+      </mat-form-field>
+      <error-wrapper [showError]="submitted" [control]="formControlsUpdateTask.description">
+      </error-wrapper>
+      <ng-select placeholder="Task type" formControlName="typeId">
+        <ng-option *ngFor="let taskType of taskTypes" [value]="taskType.id">
+          {{taskType.name}}
+        </ng-option>
+      </ng-select>
+      <error-wrapper [showError]="submitted" [control]="formControlsUpdateTask.typeId">
+      </error-wrapper>
+      <ng-select placeholder="Priority name" formControlName="priorityId">
+        <ng-option *ngFor="let priority  of priorites" [value]="priority.id">
+          {{priority.name}}
+        </ng-option>
+      </ng-select>
+      <error-wrapper [showError]="submitted" [control]="formControlsUpdateTask.priorityId">
+      </error-wrapper>
+      <ng-select placeholder="User name" formControlName="userId">
+        <ng-option *ngFor="let user  of users" [value]="user.id">
+          {{user.username}}
+        </ng-option>
+      </ng-select>
+      <error-wrapper [showError]="submitted" [control]="formControlsUpdateTask.userId">
+      </error-wrapper>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="updateTask()" style="display: flex;
+      align-items: center;">Təsdiqlə
+      <btn-loader></btn-loader>
+    </button>
+  </div>
+</ng-template>

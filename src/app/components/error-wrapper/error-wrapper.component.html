@@ -1,0 +1,18 @@
+<div class="input-errors-wrapper" *ngIf="showError">
+    <span *ngIf="control?.hasError('required')" class="form-error">Bu
+      xananın doldurulması vacibdir</span>
+    <span class="form-error" *ngIf="control?.hasError('maxlength')">
+      Maximum
+      {{ control?.errors?.maxlength?.requiredLength }}
+      simvol ola bilər
+    </span>
+    <span class="form-error" *ngIf="control?.hasError('minlength')">
+      Minimum
+      {{ control?.errors?.minlength?.requiredLength }}
+      simvol ola bilər
+    </span>
+    <span class="form-error" *ngIf="control?.hasError('email')">
+      Email düzgün deyil
+    </span>
+  </div>
+  
